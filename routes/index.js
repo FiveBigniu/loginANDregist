@@ -4,7 +4,7 @@ var User = require('../models/user.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index',{ errMsg: 'you are wrong' });
+  res.render('index',{ errMsg: 'in log page' });
 });
 
 router.post("/",function(req, res) {

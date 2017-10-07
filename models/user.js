@@ -41,6 +41,14 @@ User.prototype.userSave = function save(callback){
 
 //根据用户名得到用户数量
 User.prototype.userNum = function(username, callback) {
+  console.log("enter connection");
+  // pool.connect(function(err){
+  //   if(err){
+  //     console.log('连接失败');
+  //   }else{
+  //     console.log('连接成功');
+  //   }
+  // });
   pool.getConnection(function(err,connection){
     console.log("getConnection");
     console.log("getUserNumByName");

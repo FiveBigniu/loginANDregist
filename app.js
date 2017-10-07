@@ -6,14 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var session = require('express-session');
-var multer = require('multer');
-var mongoose = require('mongoose');
-
-global.dbHandel = require('./database/dbHandel');
-global.db = mongoose.connect('mongoose://localhost:27017/nodedb');
+// var log4js = require('log4js');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var register = require('./routes/register');
 
 var app = express();
 
@@ -32,11 +28,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/login', index); // 即为为路径 /login 设置路由
-app.use('/register', index); // 即为为路径 /register 设置路由
+app.use('/register', register); // 即为为路径 /register 设置路由
 app.use('/home', index); // 即为为路径 /home 设置路由
 app.use("/logout", index); // 即为为路径 /logout 设置路由
+
+// log4js.configure({
+//  appenders: [
+//    { type: 'console' },
+//    { type: 'file', filename: 'cheese.log', category: 'cheese' }
+//   ]
+// });
+// app.use(log4js.connectLogger(log4js.getLogger("cheese"), {level: log4js.levels.INFO}));//使用log4作爲日志打印中間件
 
 app.use(session({
     secret: 'some wierd words',
@@ -75,9 +78,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.use(bodyParser.urlencoded({extended: true}));
-// app.use(multer());
-app.use(cookieParser());
 
 module.exports = app;
