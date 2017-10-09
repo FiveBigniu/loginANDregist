@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var session = require('express-session');
+var orm = require('orm');
 // var log4js = require('log4js');
 
 var index = require('./routes/index');
@@ -68,7 +69,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -78,5 +78,16 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(orm.express('mysql://root:@localhost/sheila',{
+  define: function (db, models, next){
+    models.person = db.define('userinfo',{
+      innerid: {type:'serial', key:true},//主键
+      user:String,
+      password:String
+    });
+    next();
+  }
+}))
 
 module.exports = app;
