@@ -1,35 +1,50 @@
 var express = require('express');
 var router = express.Router();
-var select = require("../models/user.js");
 var log4js = require('log4js');
-var orm = require('orm');
-var select = require("../config/config.js");
-var sequelize = require('sequelize');
-// var bodyParser = require('body-parser');
+var User = require("../models/User.js");
+var bodyParser = require('body-parser');//使用Express接收form表单的submit(提交格式为www-form-urlencoded)需要 body-parse 插件支持
  
-// 创建 application/x-www-form-urlencoded 编码解析
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })
-var seq = new sequelize(config.database, config.username, config.password, {
-	host:config.host,
-	dialect:'mysql',
-	pool:{
-		max:5,
-		min:0,
-		idle:3000
-	}
-})
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('register', {errMsg:"in register page11"});
+  // res.redirect("http://www.example.com");//网址重定向
 });
 
 router.post('/', function(req, res, next) {
-  console.log(1);
-  req.models.person.find({ user: "test" }, "user", function (err, people) {
-    console.log(2);
-    console.log(err);
-    console.log(people);
-  });
+  var username = req.body.username;
+  var password = req.body.password;
+	User.findAll({
+		where:{
+			user : username
+		}
+	}).then(function(data){
+		if(data.length > 0){
+			res.json({status:'已经有相同的名字了'});
+			// console.log('已经有相同的名字了');
+		}else{
+		  User.create({
+		  	user : username,
+		  	password : password
+		  }).then(function (p){
+		  	if(p){
+		  		console.log('create success');
+		  		res.json({status:1});
+		  		res.end();
+		  	}else{
+		  		console.log('create faild');
+		  		res.json({status:0});
+		  		res.end();
+		  	}
+		  }).catch(function (err){
+
+		  	console.log('err'+err);
+
+		  });
+		}
+	}).catch(function(err){
+		console.log('err'+ err);
+	});
+
+    // res.end();
 });
 // router.post('/', function(req, res) {
 

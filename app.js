@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var session = require('express-session');
-var orm = require('orm');
 // var log4js = require('log4js');
 
 var index = require('./routes/index');
@@ -24,7 +23,7 @@ app.set('view engine', 'html');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -33,6 +32,7 @@ app.use('/login', index); // 即为为路径 /login 设置路由
 app.use('/register', register); // 即为为路径 /register 设置路由
 app.use('/home', index); // 即为为路径 /home 设置路由
 app.use("/logout", index); // 即为为路径 /logout 设置路由
+
 
 // log4js.configure({
 //  appenders: [
@@ -79,15 +79,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(orm.express('mysql://root:@localhost/sheila',{
-  define: function (db, models, next){
-    models.person = db.define('userinfo',{
-      innerid: {type:'serial', key:true},//主键
-      user:String,
-      password:String
-    });
-    next();
-  }
-}))
 
 module.exports = app;
