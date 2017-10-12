@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>登录界面</title>
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <form action="/" method="post">
+    <form action="/login" method="post">
       <div class="form-group">
           <div class="form-name left">
             <label>用户名</label>
           </div>
-          <input type="text" name="username" class="form-input left"/>
+          <input type="text" name="username" class="form-input left" value="test" />
       </div>
       <div class="form-group">
           <div class="form-name left">
             <label>密码</label>
           </div>
-          <input type="password" name="password" class="form-input left"/>
+          <input type="password" name="password" class="form-input left" value="123456" />
       </div>
       <div class="form-btn">
-          <input type="submit" value="登录"  />
+          <input type="submit" value="登录"/>
           <input type="button" value="注册" onclick="getRegist()" />
       </div>
       <div class="form-btn">
@@ -28,8 +29,8 @@
     </form>
     <script type="text/javascript">
       function getRegist(){
-        location.href = "/register";
-      }
+        location.href = "/registPage";
+      }    
     </script>
   </body>
 </html>
