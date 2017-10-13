@@ -14,14 +14,14 @@ router.post('/register', function(req, res, next) {
   var password = req.body.password;
 	User.findAll({
 		where:{
-			user : username
+			username : username
 		}
 	}).then(function(data){
 		if(data.length > 0){
 			res.json({status:'已经有相同的名字了'});
 		}else{
 		  User.create({
-		  	user : username,
+		  	username : username,
 		  	password : password
 		  }).then(function (p){
 		  	if(p){

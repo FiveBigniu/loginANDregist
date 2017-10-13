@@ -11,7 +11,7 @@ router.post('/login', function(req, res, next) {
       var password = req.body.password;
         User.findAll({
             where:{
-                user : username,
+                username : username,
                 password : password
             }
         }).then(function(data){
@@ -23,7 +23,7 @@ router.post('/login', function(req, res, next) {
                     }else{
                         res.writeHead(200, {'Content-Type':'text/html'});
                         res.end(data);
-                        res.render('login', {welcome:"哈喽沃德"});
+                        // res.render('login', {welcome:"哈喽沃德"});
                     }
                 });
 
