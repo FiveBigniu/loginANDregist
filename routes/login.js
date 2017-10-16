@@ -17,11 +17,11 @@ router.post('/login', function(req, res, next) {
         }).then(function(data){
             if(data.length > 0){
 
-                var html = fs.readFile('views/home.html', 'utf-8', function(err, data){
+                var html = fs.readFile('views/home.html', 'utf8', function(err, data){
                     if(err){
                         console.log(err);
                     }else{
-                        res.writeHead(200, {'Content-Type':'text/html'});
+                        res.writeHead(200, {'Content-Type':'text/html;charset=utf-8'});
                         res.end(data);
                         // res.render('login', {welcome:"哈喽沃德"});
                     }

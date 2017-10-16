@@ -11,6 +11,7 @@ var router = express.Router();
 var index = require('./routes/index');
 var register = require('./routes/register');
 var login = require('./routes/login');
+var home = require('./routes/home');
 
 var app = express();
 
@@ -31,7 +32,7 @@ app.post('/login', login);
 app.post('/register', register); 
 app.get('/registPage', register); 
 app.use('/home', index);
-app.use("/logout", index);
+app.post("/contact", home);
 
 // router.post('/register', function(req, res, next){
 //   console.log('router enter');
