@@ -5,7 +5,7 @@ var User = require("../models/User.js");
 var bodyParser = require('body-parser');//使用Express接收form表单的submit(提交格式为www-form-urlencoded)需要 body-parse 插件支持
 
 router.get('/registPage', function(req, res, next) {
-  res.render('register', {errMsg:"我返回了注册按钮"});
+  res.render('register', {Welcome:"我返回了注册按钮"});
   // res.redirect("http://www.example.com");//网址重定向
 });
 
@@ -17,7 +17,7 @@ router.post('/register', function(req, res, next) {
 			username : username
 		}
 	}).then(function(data){
-		if(data.length > 0){
+		if(data.length){
 			res.json({status:'已经有相同的名字了'});
 		}else{
 		  User.create({

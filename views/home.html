@@ -11,35 +11,35 @@
     </style>
   </head>
   <body>
-  <h1>Your name: xxxx</h1>
-    <p>Welcome to your home ~</p>
+    <p><%= Welcome %></p>
     <!-- <p><a href="/logout">我要注销 </a> -->
     </p>
-    <form action="/contact" method="post">
+<!--     <form action="/contact" method="post">
       <input type="text" name='userid' value="2" />
       <input type="submit" value="关联表"/>
-    </form>
-    <button type="button">查询用户关联的关系</button>
+    </form> -->
+    <input type="text" value="2" id="a" /><button type="button" id="1">查询用户关联的关系</button>
   </body>
   <script type="text/javascript">
-     // $("#1").click(function(e) {
-     //   $.ajax({
-     //    url : "http://localhost:8080/star/loginCheck/",
-     //    type : "POST",
-     //    contentType: "application/json;charset=utf-8",
-     //    data : JSON.stringify({'name':name,'passwd':passwd}),
-     //    dataType : "json",
-     //    success : function(result) {
-     //      if (result == "success") {
-             
-     //       } else {
-
-     //       }
-     //     },
-     //     error:function(msg){
-          
-     //     }
-     //   })
-     // })   
+     $("#1").click(function(e) {
+       $.ajax({
+        url : "/contact",
+        type : "POST",
+        contentType: "application/json;charset=utf-8",
+        data : JSON.stringify({'userid':$('#a').val()}),
+        // data:{userid:2},
+        dataType : "json",
+        success : function(result) {
+          if (result == "success") {
+             console.log(result.list)
+           } else {
+              console.log('rr')
+           }
+         },
+         error:function(msg){
+          console.log('err')
+         }
+       })
+     })   
   </script>
 </html>

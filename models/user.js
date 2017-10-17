@@ -19,6 +19,7 @@ var User = sequelize.define('ct_user', {
     freezeTableName:true
 });
 
-User.belongsTo(User_relation,{foreignKey:'userid'});
+//指定User和User_relation的关系为1：1的关系，设定目标为frendid，即查询中 userid = frendid
+User.belongsTo(User_relation,{foreignKey:'userid',targetKey: 'frendid'});
 
 module.exports = User;

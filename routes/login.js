@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');//使用Express接收form表单的submit
 var fs = require('fs');
 
 router.post('/login', function(req, res, next) {
-
       var username = req.body.username;
       var password = req.body.password;
         User.findAll({
@@ -15,18 +14,18 @@ router.post('/login', function(req, res, next) {
                 password : password
             }
         }).then(function(data){
-            if(data.length > 0){
+            if(data.length){
 
-                var html = fs.readFile('views/home.html', 'utf8', function(err, data){
-                    if(err){
-                        console.log(err);
-                    }else{
-                        res.writeHead(200, {'Content-Type':'text/html;charset=utf-8'});
-                        res.end(data);
-                        // res.render('login', {welcome:"哈喽沃德"});
-                    }
-                });
-
+                // var html = fs.readFile('views/home.html', 'utf8', function(err, data){
+                //     if(err){
+                //         console.log(err);
+                //     }else{
+                //         res.writeHead(200, {'Content-Type':'text/html;charset=utf-8'});
+                //         res.end(data);
+                //     }
+                // });
+                res.render('home', {Welcome:"我返回了注册按钮"});
+               
             }else{
                 res.json({status:'用户名或者密码不对'});
                 res.end();

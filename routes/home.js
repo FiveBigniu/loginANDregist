@@ -8,13 +8,23 @@ router.post('/contact', function(req, res, next) {
 	
 	var userid = req.body.userid;
 	console.log(userid);
-	User.findOne({
+	User.findAll({
 		include:[{
 			model:User_relation,
-			as:'userid'
+			'where':{
+				'userid':userid
+			}
 		}]
 	}).then(function(data){
 		console.log(data);
+		if(data.length){
+			res.json({list:data});
+		}else{
+		  	console.log("no frends");
+		}
+		res.end();
+		// console.log(JSON.stringify(data));
+
 	}).catch(function(err){
 		console.log('err'+ err);
 	});

@@ -7,11 +7,11 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var session = require('express-session');
 var router = express.Router();
-
-var index = require('./routes/index');
-var register = require('./routes/register');
-var login = require('./routes/login');
-var home = require('./routes/home');
+var route = require("./routes/router");
+// var index = require('./routes/index');
+// var register = require('./routes/register');
+// var login = require('./routes/login');
+// var home = require('./routes/home');
 
 var app = express();
 
@@ -27,12 +27,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.post('/login', login); 
-app.post('/register', register); 
-app.get('/registPage', register); 
-app.use('/home', index);
-app.post("/contact", home);
+route(app);
+// app.use('/', index);
+// app.post('/login', login); 
+// app.post('/register', register); 
+// app.get('/registPage', register); 
+// app.use('/home', index);
+// app.post("/contact", home);
 
 // router.post('/register', function(req, res, next){
 //   console.log('router enter');
