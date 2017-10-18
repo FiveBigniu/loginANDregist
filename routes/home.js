@@ -16,7 +16,6 @@ router.post('/contact', function(req, res, next) {
 			}
 		}]
 	}).then(function(data){
-		console.log(data);
 		if(data.length){
 			res.json({list:data});
 		}else{
