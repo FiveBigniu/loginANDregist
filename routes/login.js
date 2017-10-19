@@ -15,7 +15,6 @@ router.post('/login', function(req, res, next) {
             }
         }).then(function(data){
             if(data.length){
-
                 // var html = fs.readFile('views/home.html', 'utf8', function(err, data){
                 //     if(err){
                 //         console.log(err);
@@ -24,10 +23,12 @@ router.post('/login', function(req, res, next) {
                 //         res.end(data);
                 //     }
                 // });
-                res.render('home', {Welcome:"我返回了注册按钮"});
+//              res.render('home', {Welcome:"我返回了注册按钮"});
+                res.json({status:1, msg:'登录成功'});
+                res.end();
                
             }else{
-                res.json({status:'用户名或者密码不对'});
+                res.json({status:0, msg:'用户名或密码不正确'});
                 res.end();
             }
         }).catch(function(err){

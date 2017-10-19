@@ -8,10 +8,6 @@ var ejs = require('ejs');
 var session = require('express-session');
 var router = express.Router();
 var route = require("./routes/router");
-// var index = require('./routes/index');
-// var register = require('./routes/register');
-// var login = require('./routes/login');
-// var home = require('./routes/home');
 
 var app = express();
 
@@ -20,6 +16,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', ejs.__express); 
 app.set('view engine', 'html');
 
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "content-type");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -28,23 +32,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 route(app);
-// app.use('/', index);
-// app.post('/login', login); 
-// app.post('/register', register); 
-// app.get('/registPage', register); 
-// app.use('/home', index);
-// app.post("/contact", home);
-
-// router.post('/register', function(req, res, next){
-//   console.log('router enter');
-//   req.query['age'] = '19';
-//   next();
-// });
-
-// app.post('/register', function(req, res){
-//   console.log(req.query);
-//   res.send('ok');
-// });
 
 module.exports = app;
 // log4js.configure({
